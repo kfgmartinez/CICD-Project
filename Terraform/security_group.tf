@@ -10,15 +10,6 @@ resource "aws_security_group" "JenkinsMaster-sg" {
     protocol    = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
   }
-
-  ingress {
-    description     = "Allow traffic from AnsibleControl"
-    from_port   = 0
-    to_port     = 65535
-    protocol    = "tcp"
-    security_groups = ["aws_security_group.AnsibleControl-sg.id"]
-  }
-
   egress {
     from_port   = 0
     to_port     = 0
@@ -28,7 +19,15 @@ resource "aws_security_group" "JenkinsMaster-sg" {
 
 }
 
-
+resource "aws_security_group_rule" "allow_AnsibleControl_to_JenkinsMaster" {
+  type                     = "ingress"
+  from_port                = 0
+  to_port                  = 65535
+  protocol                 = "-1"
+  source_security_group_id = aws_security_group.AnsibleControl-sg.id
+  security_group_id        = aws_security_group.JenkinsMaster-sg.id
+  
+}
 
 resource "aws_security_group" "AnsibleControl-sg" {
   name        = "AnsibleControl-sg"
@@ -42,15 +41,6 @@ resource "aws_security_group" "AnsibleControl-sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  ingress {
-    description     = "Allow traffic from JenkinsMaster"
-    from_port   = 0
-    to_port     = 65535
-    protocol    = "tcp"
-    security_groups = ["aws_security_group.JenkinsMaster-sg.id"]
-
-  }
-
   egress {
     from_port   = 0
     to_port     = 0
@@ -58,6 +48,16 @@ resource "aws_security_group" "AnsibleControl-sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
+}
+
+resource "aws_security_group_rule" "allow_JenkinsMaster_to_AnsibleControl" {
+  type                     = "ingress"
+  from_port                = 0
+  to_port                  = 65535
+  protocol                 = "-1"
+  source_security_group_id = aws_security_group.JenkinsMaster-sg.id
+  security_group_id        = aws_security_group.AnsibleControl-sg.id
+  
 }
 
 
@@ -75,15 +75,6 @@ resource "aws_security_group" "JenkinsBuildSlave-sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  ingress {
-    description     = "Allow traffic from AnsibleControl"
-    from_port   = 0
-    to_port     = 65535
-    protocol    = "tcp"
-    security_groups = ["aws_security_group.AnsibleControl-sg.id"]
-
-  }
-
   egress {
     from_port   = 0
     to_port     = 0
@@ -91,4 +82,14 @@ resource "aws_security_group" "JenkinsBuildSlave-sg" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
+}
+
+resource "aws_security_group_rule" "allow_AnsibleControl_to_JenkinsBuildSlave-sg" {
+  type                     = "ingress"
+  from_port                = 0
+  to_port                  = 65535
+  protocol                 = "-1"
+  source_security_group_id = aws_security_group.AnsibleControl-sg.id
+  security_group_id        = aws_security_group.JenkinsBuildSlave-sg.id
+  
 }

@@ -1,0 +1,10 @@
+all:
+  hosts:
+    Jenkins-Master:
+      ansible_host: 10.0.1.172
+      ansible_user: ubuntu
+      ansible_ssh_private_key_file: CICD-2-key
+    Jenkins-BuildSlave:
+      ansible_host: 10.0.1.215
+      ansible_user: ubuntu
+      ansible_ssh_private_key_file: CICD-2-key

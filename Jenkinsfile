@@ -6,9 +6,9 @@ pipeline{
     }
     
     stages{
-        stage ('Clone-Code'){
+        stage ('BUILD'){
             steps{
-                git branch: 'main', url: 'https://github.com/kfgmartinez/CICD-Project.git'
+                sh 'mvn clean deploy'
             }
         }
     }

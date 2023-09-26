@@ -83,7 +83,7 @@ pipeline{
             steps{
                 script{
                     echo '<--------------- Docker Build Started --------------->'
-                    app = docker.build("kfgmartinez01.jfrog.io/kfgmartinez-docker-local//ttrend" + "2.1.2")
+                    app = docker.build(kfgmartinez01.jfrog.io/kfgmartinez-docker-local//ttrend + ":" + 2.1.2)
                     echo '<--------------- Docker Build Ended --------------->'
 
                 }

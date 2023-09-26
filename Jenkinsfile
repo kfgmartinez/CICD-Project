@@ -1,5 +1,7 @@
 //jfrog registry
 def registry = 'https://kfgmartinez01.jfrog.io'
+def imageName = 'kfgmartinez01.jfrog.io/kfgmartinez-docker-local//ttrend'
+def version   = '2.1.2'
 //
 pipeline{
     agent{
@@ -75,6 +77,31 @@ pipeline{
             
                 }
             }   
-        }   
+        }
+
+        stage('Docker Build'){
+            steps{
+                script{
+                    echo '<--------------- Docker Build Started --------------->'
+                    app = docker.build("kfgmartinez01.jfrog.io/kfgmartinez-docker-local//ttrend" + "2.1.2")
+                    echo '<--------------- Docker Build Ended --------------->'
+
+                }
+            }
+        }
+
+        stage("Docker Publish"){
+            steps{
+                script{
+                    echo '<--------------- Docker Publish Started --------------->'
+                      docker.withRegistry(registry, 'jfrog-artifact'){
+                      app.push()
+                      }
+                    echo '<--------------- Docker Publish Ended --------------->'
+                }
+            }
+        }
+
+
     }
 }

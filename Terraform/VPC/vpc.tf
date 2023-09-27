@@ -83,3 +83,12 @@ resource "aws_route_table_association" "CICD2-pub-2-a" {
   subnet_id      = aws_subnet.CICD2-pub-2.id
   route_table_id = aws_route_table.CICD2-pub-RT.id
 }
+
+#################################################################################################################
+
+module "eks" {
+  source = "../EKS"
+  vpc_id = aws_vpc.CICD2.id
+  subnet_ids = [aws_subnet.CICD2-pub-1.id, aws_subnet.CICD2-pub-2.id]
+  sg_ids = module.eks-sg.security_group_public
+}

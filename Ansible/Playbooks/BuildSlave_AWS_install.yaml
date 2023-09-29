@@ -1,0 +1,37 @@
+- name: AWS CLI setup for Jenkins-Buildslave server
+  hosts: Jenkins-BuildSlave
+  become: True
+  tasks:
+    - name: Install Packages
+      ansible.builtin.apt:
+        name: "{{item}}"
+        state: latest
+        update_cache: yes
+      loop:
+        - git
+        - zip
+        - unzip
+    - name: Get AWS CLI
+      ansible.builtin.get_url:
+        url: "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip"
+        dest: /tmp/
+    - name: Unarchive AWS file 
+      ansible.builtin.unarchive:
+        src: /tmp/awscli-exe-linux-x86_64.zip
+        dest: /tmp/
+        remote_src: yes
+    - name: Install AWS CLI
+      ansible.builtin.command:
+        cmd: tmp/aws/install --update
+    
+    ###Insert your Keys/region/format
+    - name: Configure AWS.
+      shell: aws configure set {{ item.key }} {{ item.value }} --profile {{ aws_profile }}
+      no_log: True
+      with_dict:
+        aws_access_key_id: "{{ aws_access_key }}"
+        aws_secret_access_key: "{{ aws_secret_key }}"
+        region: "{{ aws_region }}"
+        format: "{{ aws_format }}"
+      become_user: "{{ aws_system_user }}"
+      changed_when: false

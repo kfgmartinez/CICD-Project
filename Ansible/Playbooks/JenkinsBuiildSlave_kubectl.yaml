@@ -1,0 +1,28 @@
+---
+- name: Kubernetes setup for Jenkins-Buildslave server
+  hosts: Jenkins-BuildSlave
+  become: True
+  tasks:
+    - name: Download kubectl
+      ansible.builtin.get_url:
+        url: https://dl.k8s.io/release/v1.28.2/bin/linux/amd64/kubectl
+        dest: /root/
+
+    - name: Change permission on kubectl file
+      ansible.builtin.file:
+        path: /root/kubectl
+        state: file
+        owner: root
+        group: root
+        mode: +x
+
+    - name: Move kubectl file to /usr/local/bin
+      ansible.builtin.file:
+        path: /root/kubectl
+        dest: /usr/local/bin
+
+    - name: Move kubectl file to /usr/local/bin
+      ansible.builtin.command:
+        cmd: mv /root/kubectl /usr/local/bin
+
+    

@@ -107,7 +107,7 @@ pipeline{
         stage ('Deploy '){
             steps{
                 script{
-                    sh '.batch_deply.sh'
+                    sh './Kubernetes/batch_deply.sh'
                 }
             }
         }

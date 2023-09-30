@@ -1,5 +1,6 @@
 #!/bin/sh
 echo ---------- starting Script ----------
+cd jenkins/workspace/_trend_multibranch_pipeline_main/Kubernetes/ 
 echo ---------- Applying Namespace ----------
 kubectl apply -f namespace.yaml
 echo ---------- Applying Secret ----------

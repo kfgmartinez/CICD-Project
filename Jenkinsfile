@@ -109,8 +109,8 @@ pipeline{
                 script{
                     sh './batch_deply.sh'
 
+                }
             }
         }
-
     }
 }

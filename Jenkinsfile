@@ -108,17 +108,8 @@ pipeline{
             steps{
                 script{
                     echo '---------- starting Script ----------'
-                    echo '---------- Applying Namespace ----------'
-                    sh 'kubectl apply -f jenkins/workspace/_trend_multibranch_pipeline_main/Kubernetes/namespace.yaml'
-                    echo '---------- Applying Secret ----------'
-                    sh 'kubectl apply -f jenkins/workspace/_trend_multibranch_pipeline_main/Kubernetes/secret.yaml'
-                    echo '---------- Applying Deployment ----------'
-                    sh 'kubectl apply -f jenkins/workspace/_trend_multibranch_pipeline_main/Kubernetes/deployment.yaml'
-                    echo '---------- Applying Service ----------'
-                    sh 'kubectl apply -f jenkins/workspace/_trend_multibranch_pipeline_main/Kubernetes/service.yaml'
-                    echo '---------- Summary -----------'
-                    sh 'kubectl get all -n kfgmartinez-namespace'
-                }
+                    sh './batch_deply.sh'
+
             }
         }
 

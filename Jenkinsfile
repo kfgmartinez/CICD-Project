@@ -107,12 +107,10 @@ pipeline{
         stage ('Deploy '){
             steps{
                 script{
-                    echo '---------- starting Script ----------'
                     sh './batch_deply.sh'
 
             }
         }
-
 
     }
 }

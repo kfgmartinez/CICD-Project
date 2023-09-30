@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kfgmartinez-deployment
+  namespace: kfgmartinez-namespace
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: ttrend-label
+  template:
+    metadata:
+      labels:
+        app: ttrend-label
+    spec:
+      imagePullSecrets:
+      - name: jfrog-credentials
+      containers:
+      - name: ttrend-container
+        image: kfgmartinez01.jfrog.io/kfgmartinez-docker/ttrend:2.1.2
+        ports:
+        - containerPort: 8000

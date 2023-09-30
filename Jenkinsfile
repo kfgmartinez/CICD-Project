@@ -104,6 +104,14 @@ pipeline{
             }
         }
 
+        stage ('Deploy '){
+            steps{
+                script{
+                    sh '.batch_deply.sh'
+                }
+            }
+        }
+
 
     }
 }

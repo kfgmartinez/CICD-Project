@@ -107,8 +107,7 @@ pipeline{
         stage ('Deploy '){
             steps{
                 script{
-                    sh 'cd ./Kubernetes/'
-                    sh './batch_deply.sh'
+                    sh '/home/ubuntu/jenkins/workspace/_trend_multibranch_pipeline_main/Kubernetes/batch_deply.sh'
                 }
             }
         }

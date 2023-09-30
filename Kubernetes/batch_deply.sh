@@ -8,6 +8,6 @@ echo ---------- Applying Deployment ----------
 kubectl apply -f deployment.yaml
 echo ---------- Applying Service ----------
 kubectl apply -f service.yaml
-echo ---------- Summary ----------
+echo ---------- Summary -----------
 kubectl get all -n kfgmartinez-namespace
 
